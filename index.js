@@ -115,9 +115,11 @@ function hasOfAKind(hand){
     if (formattedHand[i][0] === lastValue) {
       count += 1
       max = Math.max(count, max)
-    } 
+    } else {
+      count = 1
+    }
 
-    lastValue =formattedHand[i][0]
+    lastValue = formattedHand[i][0]
   }
 
   console.log(`This hand contains ${max} of a kind!`)
@@ -144,7 +146,26 @@ function hasFullHouse(hand) {
 
 function hasFlush(hand) {
 
+  let formattedHand = formatHandBySuit(hand)
+
+  if (formattedHand.length < 5) {
+    console.log('Please provide a valid 5-card hand!')
+    return false
+  }
+
+  let suit = formattedHand[0][1]
+
+  for (let i = 1; i < formattedHand.length; i++) {
+
+    if (formattedHand[i][1] !== suit) {
+      console.log('This hand does not contain a flush')
+      return false
+    }
+  }
+
+  console.log(`This hand contains a flush!`)
   return true
+
 }
 
 function formatHand(hand) {
@@ -160,17 +181,40 @@ function formatHand(hand) {
     return pokerDeck[cardValue]
   })
 
+
   // sort by number value
   return arrayWithValues.sort((a, b) => a[0] - b[0])
 }
 
-console.log(formatHand(['AH', '2H', '3D']))
-console.log(hasStraight(['AH', '3H', '4H', '6H']))
-console.log(hasStraight(['3H', '4H', '5H', '6S', '7D']))
-console.log(hasStraight(['3H', '2H', '5H', 'AS', '4D']))
-console.log(hasStraight(['3H', '2H', '5H', 'AS', 'ACE of spades']))
-console.log(hasOfAKind(['3H', '4H', '5H', '3S', '7D']))
-console.log(hasOfAKind(['3H', '4H', '4H', '4S', '5D']))
-console.log(hasAFullHouse(['3H', '4H', '4H', '4S', '5D']))
+function formatHandBySuit(hand) {
+
+  for (const card of hand) {
+    if (card in pokerDeck === false) {
+      console.log('Invalid! Please enter cards in form "AH", "3D", etc ')
+      return []
+    }
+  }
+
+  const arrayWithValues = hand.map((cardValue) => {
+    return pokerDeck[cardValue]
+  })
+
+  // sort by number value
+  return arrayWithValues.sort((a, b) => a[1] - b[1])
+}
+
+// console.log(formatHand(['AH', '2H', '3D']))
+// console.log(hasStraight(['AH', '3H', '4H', '6H']))
+// console.log(hasStraight(['3H', '4H', '5H', '6S', '7D']))
+// console.log(hasStraight(['3H', '2H', '5H', 'AS', '4D']))
+// console.log(hasStraight(['3H', '2H', '5H', 'AS', 'ACE of spades']))
+// console.log(hasOfAKind(['3H', '4H', '5H', '3S', '7D']))
+// console.log(hasOfAKind(['3H', '4H', '4H', '4S', '4D']))
+// console.log(hasFullHouse(['3H', '4H', '4H', '4S', '5D']))
+// console.log(hasFullHouse(['3S', '3H', '3D', '4S', '4D']))
+// console.log(hasFullHouse(['3S', '2H', '3D', '2S', '2D']))
+// console.log(hasFlush(['9H', '2H', '7H', '4H', '4D']))
+// console.log(hasFlush(['KH', 'AH', 'QH', '2H', '2H']))
+
 
 module.exports = {formatHand, hasStraight, hasFullHouse}
