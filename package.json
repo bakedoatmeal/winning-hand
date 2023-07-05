@@ -1,0 +1,19 @@
+{
+  "name": "winning-hand",
+  "version": "1.0.0",
+  "description": "A simple package for determining a winning poker hand given 5-card hands",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bakedoatmeal/winning-hand.git"
+  },
+  "author": "Jane Cui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bakedoatmeal/winning-hand/issues"
+  },
+  "homepage": "https://github.com/bakedoatmeal/winning-hand#readme"
+}
